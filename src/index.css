@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Brand tokens: swap these to rebrand. Everything else references them. */
+@theme {
+  --color-paper: #FFFFFF;
+  --color-mist: #F2F2F2;
+  --color-gold: #FEBE10;
+  --color-crimson: #BA0021;
+  --color-ink: #19171B;
+  --color-ink-2: #26232A; /* raised surface on ink */
+  --color-smoke: #5E5A63; /* secondary text on light */
+  --color-ash: #B4AFB9;   /* secondary text on ink */
+
+  /* Status colors (scanner, badges). Green is not in the brand set; picked to sit beside gold/crimson. */
+  --color-active: #12A150;
+  --color-expiring: #FEBE10;
+  --color-expired: #BA0021;
+
+  --font-display: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+  --font-sans: 'Barlow', system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  background: var(--color-mist);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+* {
+  scrollbar-color: var(--color-smoke) transparent;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Press feedback for anything tappable. */
+.press {
+  transition: transform 140ms var(--ease-out);
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Story-style progress fill; its animationend drives carousel timing. */
+@keyframes fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.fill {
+  transform-origin: left;
+  animation: fill var(--dur, 6s) linear forwards;
+}
